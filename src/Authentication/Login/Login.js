@@ -1,11 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect} from "react";
 import { Button, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
+
 const Login = () => {
   useEffect(() => {
     document.title = "Login | Diligent Developer";
     document.body.style.background = "#2b2f32";
   }, []);
+
   return (
     <div>
       <h1 className="text-center text-warning my-5">Login</h1>
