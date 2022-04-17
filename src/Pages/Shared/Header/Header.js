@@ -9,7 +9,7 @@ const Header = () => {
   const [user, loading, error] = useAuthState(auth);
   return (
     <div>
-      <Navbar bg="dark" expand="lg" className="d-flex">
+      <Navbar bg="dark" expand="lg" sticky="top">
         <Container>
           <Navbar.Brand href="#">
             <span className="text-warning">Diligate Developer</span>
