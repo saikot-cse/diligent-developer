@@ -3,42 +3,42 @@
     "id": 1,
     "name": "Web Development (Begineer)",
     "price": 9.99,
-    "image": "https://i.ibb.co/bNzJwcQ/service1.jpg",
+    "image": "https://i.ibb.co/pX2tCzf/service1.jpg",
     "desc": "The best first step to becoming a Web Developer is to start learning web development fundamentals, including HTML, CSS , and JavaScript."
   },
   {
     "id": 2,
     "name": "Web Development (Intermediate)",
     "price": 19.99,
-    "image": "https://i.ibb.co/D5PQftN/service2.jpg",
-    "desc": "In this course you'll gain a deep understanding of HTML and CSS, as we dive into how these technologies really work. "
+    "image": "https://i.ibb.co/bvzmFRP/service2.jpg",
+    "desc": "In this course you will gain a deep understanding of HTML and CSS, as we dive into how these technologie really work. So, don't late and enroll now. "
   },
   {
     "id": 3,
     "name": "Web Development (Advance)",
     "price": 29.99,
-    "image": "https://i.ibb.co/LNxFRMx/service3.jpg",
+    "image": "https://i.ibb.co/W6yN8Jf/service3.jpg",
     "desc": "Become a Fullstack Web Developer by learning the most in demand skills! This is one of the fastest growing courses on Diligated Developer "
   },
   {
     "id": 4,
     "name": "Web Development In 100 days",
     "price": 39.99,
-    "image": "https://i.ibb.co/4VrL2wd/service4.jpg",
-    "desc": "This course will teach you web development and turn you into a web developer in 100 days - or allow you to refresh key essentials and expand your existing knowledge!"
+    "image": "https://i.ibb.co/XpMNSSq/service4.jpg",
+    "desc": "This course will teach you web development and turn you into a web developer in 100 days to refresh key essentials and expand your existing knowledge!"
   },
   {
     "id": 5,
     "name": "Web Development Top projects",
     "price": 24.99,
-    "image": "https://i.ibb.co/k6TbVML/service5.png",
-    "desc": "This course is focused on efficiency and getting you hired by building your dream portfolio so you can get a job or work as a freelancer."
+    "image": "https://i.ibb.co/6Pk7ts5/service5.png",
+    "desc": "This course is focused on efficiency and getting you hired by building your dream portfolio with some beautiful projects so you can get a job or work as a freelancer."
   },
   {
     "id": 6,
     "name": "The Complete Web Developer Bootcamp",
     "price": 49.99,
-    "image": "https://i.ibb.co/sbY4XFc/service6.jpg",
+    "image": "https://i.ibb.co/zSRhVmD/service6.jpg",
     "desc": "Welcome to the brand new version of The Web Developer Bootcamp. This course was overhauled to prepare students for the 2022 job market."
   }
 ]
