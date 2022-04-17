@@ -1,8 +1,14 @@
 import React from "react";
 import { Button, Card } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+
 
 const Service = ({ service }) => {
   const { name, price, image, desc } = service;
+  const navigate = useNavigate();
+  const navigateToCheckout = ()=>{
+    navigate('/checkout');
+  }
   return (
     <div>
       <Card style={{ width: "18rem" }}>
@@ -12,7 +18,7 @@ const Service = ({ service }) => {
           <Card.Text>{desc}</Card.Text>
           <div className=" d-flex justify-content-between">
             <Button className="font-weight-bolder" variant="warning">Price: ${price}</Button>
-            <Button className="font-weight-bolder" variant="warning">Add to Cart</Button>
+            <Button onClick={navigateToCheckout} className="font-weight-bolder" variant="warning">Buy Now</Button>
           </div>
         </Card.Body>
       </Card>
