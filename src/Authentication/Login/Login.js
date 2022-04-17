@@ -1,24 +1,52 @@
-import React, { useEffect} from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { useSignInWithEmailAndPassword, useSignInWithGithub, useSignInWithGoogle } from "react-firebase-hooks/auth";
+import { Link, useNavigate } from "react-router-dom";
+import auth from "../../firebase.init";
 
 const Login = () => {
   useEffect(() => {
     document.title = "Login | Diligent Developer";
     document.body.style.background = "#2b2f32";
   }, []);
-
+  const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
+  const [signInWithGithub, githubUser, githubLoading, githubError] = useSignInWithGithub(auth);
+  const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
+  const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const handleGoogleSignIn = () => {
+    signInWithGoogle();
+  };
+  const handleGithubSignIn = () => {
+    signInWithGithub();
+  };
+  if (googleUser || githubUser) {
+    navigate("/home");
+  }
+  if(user){
+    navigate('/home');
+  }
+  const handleEmailblur = (e) => {
+    setEmail(e.target.value);
+  };
+  const handlePasswordblur = (e) => {
+    setPassword(e.target.value);
+  };
+  const handleLogin= ()=>{
+    signInWithEmailAndPassword(email,password);
+  }
   return (
     <div>
       <h1 className="text-center text-warning my-5">Login</h1>
       <Form className="w-50 mx-auto">
         <Form.Group className="mb-3" controlId="formGroupEmail">
           <Form.Label className="text-white">Email address</Form.Label>
-          <Form.Control type="email" placeholder="Enter email" style={{ border: "1px", color: "#FFCA2C" }} required />
+          <Form.Control onBlur={handleEmailblur} type="email" placeholder="Enter email" style={{ border: "1px", color: "#FFCA2C" }} required />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formGroupPassword">
           <Form.Label className="text-white">Password</Form.Label>
-          <Form.Control type="password" placeholder="Password" style={{ border: "1px", color: "#FFCA2C" }} required />
+          <Form.Control onBlur={handlePasswordblur} type="password" placeholder="Password" style={{ border: "1px", color: "#FFCA2C" }} required />
         </Form.Group>
         <p className="text-white">
           Don't have any account?
@@ -26,7 +54,7 @@ const Login = () => {
             Please Register
           </Link>
         </p>
-        <Button className="font-weight-bolder w-25 mx-auto d-block" variant="warning">
+        <Button onClick={handleLogin} className="font-weight-bolder w-25 mx-auto d-block" variant="warning">
           Login
         </Button>
         <div className="d-flex align-items-center justify-content-center my-3">
@@ -35,10 +63,10 @@ const Login = () => {
           <div style={{ height: "2px", backgroundColor: "#ffffff" }} className="w-25"></div>
         </div>
         <div className="d-flex justify-content-between">
-          <Button className="font-weight-bolder w-50 mx-auto d-block me-5" variant="info">
+          <Button onClick={handleGoogleSignIn} className="font-weight-bolder w-50 mx-auto d-block me-5" variant="info">
             Sign In with Google
           </Button>
-          <Button className="font-weight-bolder w-50 mx-auto d-block" variant="dark">
+          <Button onClick={handleGithubSignIn} className="font-weight-bolder w-50 mx-auto d-block" variant="dark">
             Sign In with Github
           </Button>
         </div>
