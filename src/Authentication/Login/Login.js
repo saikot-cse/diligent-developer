@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useSignInWithEmailAndPassword, useSignInWithGithub, useSignInWithGoogle } from "react-firebase-hooks/auth";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import auth from "../../firebase.init";
 
 const Login = () => {
@@ -11,10 +13,11 @@ const Login = () => {
   }, []);
   const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
   const [signInWithGithub, githubUser, githubLoading, githubError] = useSignInWithGithub(auth);
-  const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
+  const [signInWithEmailAndPassword, user, loading, hookError] = useSignInWithEmailAndPassword(auth);
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
+  const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const location = useLocation();
@@ -28,12 +31,11 @@ const Login = () => {
   if (googleUser || githubUser) {
     navigate(from);
   }
-  
-  useEffect(()=>{
-    if(user){
+  useEffect(() => {
+    if (user) {
       navigate(from);
     }
-  },[user])
+  }, [user]);
   const handleEmailblur = (e) => {
     const emailRegex = /\S+@\S+\.\S+/;
     const validEmail = emailRegex.test(e.target.value);
@@ -54,9 +56,28 @@ const Login = () => {
       setPasswordError("Must content eight characters, at least one letter and one number");
     }
   };
-  const handleLogin= ()=>{
-    signInWithEmailAndPassword(email,password);
-  }
+  const handleLogin = () => {
+    signInWithEmailAndPassword(email, password);
+  };
+  useEffect(() => {
+    const error = hookError || googleError || githubError;
+    if (error) {
+      switch (error?.code) {
+        case "auth/user-not-found":
+          toast("Please provide a valid email");
+          break;
+
+        case "auth/wrong-password":
+          toast("Wrong password.");
+          break;
+        case "auth/popup-closed-by-user":
+          toast("having issue? Register with Email");
+          break;
+        default:
+          toast("something went wrong");
+      }
+    }
+  }, [hookError, googleError, githubError]);
   return (
     <div>
       <h1 className="text-center text-warning my-5">Login</h1>
@@ -71,6 +92,7 @@ const Login = () => {
           <Form.Control onBlur={handlePasswordblur} type="password" placeholder="Password" style={{ border: "1px", color: "#FFCA2C" }} required />
         </Form.Group>
         <p className="text-danger">{passwordError}</p>
+        <ToastContainer />
         <p className="text-white">
           Don't have any account?
           <Link className="text-warning ms-2 text-decoration-none" to="/register">

@@ -3,11 +3,12 @@ import { Button, Form } from "react-bootstrap";
 import { useCreateUserWithEmailAndPassword, useSignInWithGithub, useSignInWithGoogle } from "react-firebase-hooks/auth";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import auth from "../../firebase.init";
-
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Register = () => {
   const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
   const [signInWithGithub, githubUser, githubLoading, githubError] = useSignInWithGithub(auth);
-  const [createUserWithEmailAndPassword, user, loading, userError] = useCreateUserWithEmailAndPassword(auth);
+  const [createUserWithEmailAndPassword, user, loading, hookError] = useCreateUserWithEmailAndPassword(auth,{ sendEmailVerification: true });
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -65,9 +66,31 @@ const Register = () => {
   const handleRegister = () => {
     createUserWithEmailAndPassword(email, password);
   };
-  if (user) {
-    navigate("/login");
-  }
+  useEffect(() => {
+    if (user) {
+      navigate("/login");
+    }
+  }, [user]);
+  useEffect(() => {
+    const error = hookError || googleError || githubError;
+    if (error) {
+      console.log(error);
+      switch (error?.code) {
+        case "auth/email-already-in-use":
+          toast("Email already used. Please try another email");
+          break;
+
+        case "auth/wrong-password":
+          toast("Wrong password.");
+          break;
+        case "auth/popup-closed-by-user":
+          toast("having issue? Register with Email");
+          break;
+        default:
+          toast("something went wrong");
+      }
+    }
+  }, [hookError, googleError, githubError]);
 
   return (
     <div>
@@ -93,6 +116,7 @@ const Register = () => {
           <Form.Control onBlur={handleConfirmPasswordblur} type="password" placeholder="Confirm Password" style={{ border: "1px", color: "#FFCA2C" }} required />
         </Form.Group>
         <p className="text-danger">{confirmPasswordError}</p>
+        <ToastContainer />
         <p className="text-white">
           Already have an account?
           <Link className="text-warning ms-2 text-decoration-none" to="/login">
