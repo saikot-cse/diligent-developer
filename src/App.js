@@ -6,6 +6,7 @@ import About from './Pages/About/About';
 import Blogs from './Pages/Blogs/Blogs';
 import Checkout from './Pages/Checkout/Checkout';
 import Home from './Pages/Home/Home';
+import NotFound from './Pages/NotFound/NotFound';
 import RequireAuth from './Pages/RequireAuth/RequireAuth';
 import Services from './Pages/Services/Services';
 import Header from './Pages/Shared/Header/Header';
@@ -27,6 +28,7 @@ function App() {
         <Route path='/blogs' element={<Blogs/>}/>
         <Route path='/register' element={<Register/>}/>
         <Route path='/login' element={<Login/>}/>
+        <Route path='*' element={<NotFound />}/>
       </Routes>
     </div>
   );

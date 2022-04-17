@@ -29,6 +29,19 @@ const Register = () => {
         </Form.Group>
         <p className="text-white">Already have an account?<Link className="text-warning ms-2 text-decoration-none" to= '/login'>Please Login</Link></p>
         <Button className="font-weight-bolder w-25 mx-auto d-block" variant="warning">Register</Button>
+        <div className="d-flex align-items-center justify-content-center my-3">
+          <div style={{ height: "2px", backgroundColor: "#ffffff" }} className="w-25"></div>
+          <p className="text-warning mx-2 mt-2">or</p>
+          <div style={{ height: "2px", backgroundColor: "#ffffff" }} className="w-25"></div>
+        </div>
+        <div className="d-flex justify-content-between mb-5">
+          <Button className="font-weight-bolder w-50 mx-auto d-block me-5" variant="info">
+            Sign Up with Google
+          </Button>
+          <Button className="font-weight-bolder w-50 mx-auto d-block" variant="dark">
+            Sign Up with Github
+          </Button>
+        </div>
       </Form>
     </div>
   );
