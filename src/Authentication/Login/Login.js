@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useSignInWithEmailAndPassword, useSignInWithGithub, useSignInWithGoogle } from "react-firebase-hooks/auth";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import auth from "../../firebase.init";
 
 const Login = () => {
@@ -15,6 +15,7 @@ const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const location = useLocation();
   const handleGoogleSignIn = () => {
     signInWithGoogle();
   };
@@ -24,8 +25,9 @@ const Login = () => {
   if (googleUser || githubUser) {
     navigate("/home");
   }
+  const from = location.state?.from?.pathname || "/";
   if(user){
-    navigate('/home');
+    navigate(from);
   }
   const handleEmailblur = (e) => {
     setEmail(e.target.value);
