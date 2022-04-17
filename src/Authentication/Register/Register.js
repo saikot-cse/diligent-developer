@@ -7,11 +7,15 @@ import auth from "../../firebase.init";
 const Register = () => {
   const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
   const [signInWithGithub, githubUser, githubLoading, githubError] = useSignInWithGithub(auth);
-  const [createUserWithEmailAndPassword, user, loading, error] = useCreateUserWithEmailAndPassword(auth);
+  const [createUserWithEmailAndPassword, user, loading, userError] = useCreateUserWithEmailAndPassword(auth);
   const navigate = useNavigate();
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [confirmPasswordError, setConfirmPasswordError] = useState("");
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
   useEffect(() => {
@@ -27,22 +31,42 @@ const Register = () => {
   if (googleUser || githubUser) {
     navigate(from);
   }
+  const handleNameBlur = (e) => {
+    setName(e.target.value);
+  };
   const handleEmailblur = (e) => {
-    setEmail(e.target.value);
-  };
-  const handlePasswordblur = (e) => {
-    setPassword(e.target.value);
-  };
-  const handleConfirmPasswordblur = (e) => {
-    setConfirmPassword(e.target.value);
-  };
-  const handleRegister = () => {
-    if (password === confirmPassword) {
-      createUserWithEmailAndPassword(email, password);
+    const emailRegex = /\S+@\S+\.\S+/;
+    const validEmail = emailRegex.test(e.target.value);
+    if (validEmail) {
+      setEmail(e.target.value);
+      setEmailError("");
+    } else {
+      setEmailError("Invalid Email");
     }
   };
-  if(user){
-    navigate('/login')
+  const handlePasswordblur = (e) => {
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    const validPassword = passwordRegex.test(e.target.value);
+    if (validPassword) {
+      setPassword(e.target.value);
+      setPasswordError("");
+    } else {
+      setPasswordError("Must content eight characters, at least one letter and one number");
+    }
+  };
+  const handleConfirmPasswordblur = (e) => {
+    if (e.target.value === password) {
+      setConfirmPassword(e.target.value);
+      setConfirmPasswordError("");
+    } else {
+      setConfirmPasswordError("Password Dosen't Match");
+    }
+  };
+  const handleRegister = () => {
+    createUserWithEmailAndPassword(email, password);
+  };
+  if (user) {
+    navigate("/login");
   }
 
   return (
@@ -51,20 +75,24 @@ const Register = () => {
       <Form className="w-50 mx-auto">
         <Form.Group className="mb-3" controlId="formGroupName">
           <Form.Label className="text-white">Full Name</Form.Label>
-          <Form.Control type="text" placeholder="Your name" style={{ border: "1px", color: "#FFCA2C" }} required />
+          <Form.Control onBlur={handleNameBlur} type="text" placeholder="Your name" style={{ border: "1px", color: "#FFCA2C" }} required />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formGroupEmail">
           <Form.Label className="text-white">Email address</Form.Label>
           <Form.Control onBlur={handleEmailblur} type="email" placeholder="Enter email" style={{ border: "1px", color: "#FFCA2C" }} required />
         </Form.Group>
+        <p className="text-danger">{emailError}</p>
         <Form.Group className="mb-3" controlId="formGroupPassword">
           <Form.Label className="text-white">Password</Form.Label>
           <Form.Control onBlur={handlePasswordblur} type="password" placeholder="Password" style={{ border: "1px", color: "#FFCA2C" }} required />
         </Form.Group>
+        <p className="text-danger">{passwordError}</p>
+
         <Form.Group className="mb-3" controlId="formGroupConfirmPassword">
           <Form.Label className="text-white">Confirm Password</Form.Label>
           <Form.Control onBlur={handleConfirmPasswordblur} type="password" placeholder="Confirm Password" style={{ border: "1px", color: "#FFCA2C" }} required />
         </Form.Group>
+        <p className="text-danger">{confirmPasswordError}</p>
         <p className="text-white">
           Already have an account?
           <Link className="text-warning ms-2 text-decoration-none" to="/login">

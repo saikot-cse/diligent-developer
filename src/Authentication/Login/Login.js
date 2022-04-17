@@ -15,6 +15,8 @@ const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
   const handleGoogleSignIn = () => {
@@ -27,14 +29,30 @@ const Login = () => {
     navigate(from);
   }
   
-  if(user){
-    navigate(from);
-  }
+  useEffect(()=>{
+    if(user){
+      navigate(from);
+    }
+  },[user])
   const handleEmailblur = (e) => {
-    setEmail(e.target.value);
+    const emailRegex = /\S+@\S+\.\S+/;
+    const validEmail = emailRegex.test(e.target.value);
+    if (validEmail) {
+      setEmail(e.target.value);
+      setEmailError("");
+    } else {
+      setEmailError("Invalid Email");
+    }
   };
   const handlePasswordblur = (e) => {
-    setPassword(e.target.value);
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    const validPassword = passwordRegex.test(e.target.value);
+    if (validPassword) {
+      setPassword(e.target.value);
+      setPasswordError("");
+    } else {
+      setPasswordError("Must content eight characters, at least one letter and one number");
+    }
   };
   const handleLogin= ()=>{
     signInWithEmailAndPassword(email,password);
@@ -47,14 +65,22 @@ const Login = () => {
           <Form.Label className="text-white">Email address</Form.Label>
           <Form.Control onBlur={handleEmailblur} type="email" placeholder="Enter email" style={{ border: "1px", color: "#FFCA2C" }} required />
         </Form.Group>
+        <p className="text-danger">{emailError}</p>
         <Form.Group className="mb-3" controlId="formGroupPassword">
           <Form.Label className="text-white">Password</Form.Label>
           <Form.Control onBlur={handlePasswordblur} type="password" placeholder="Password" style={{ border: "1px", color: "#FFCA2C" }} required />
         </Form.Group>
+        <p className="text-danger">{passwordError}</p>
         <p className="text-white">
           Don't have any account?
           <Link className="text-warning ms-2 text-decoration-none" to="/register">
             Please Register
+          </Link>
+        </p>
+        <p className="text-white">
+          Forgot Password?
+          <Link className="text-warning ms-2 text-decoration-none" to="/register">
+            Reset Password
           </Link>
         </p>
         <Button onClick={handleLogin} className="font-weight-bolder w-25 mx-auto d-block" variant="warning">

@@ -35,6 +35,7 @@ const Header = () => {
                 <Nav.Link as={Link} className="text-white" to="/login">
                   Login
                 </Nav.Link>
+                
               )}
             </Nav>
           </Navbar.Collapse>
