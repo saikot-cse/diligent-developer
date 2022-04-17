@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { useSignInWithEmailAndPassword, useSignInWithGithub, useSignInWithGoogle } from "react-firebase-hooks/auth";
+import { useSendPasswordResetEmail, useSignInWithEmailAndPassword, useSignInWithGithub, useSignInWithGoogle } from "react-firebase-hooks/auth";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -14,6 +14,7 @@ const Login = () => {
   const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
   const [signInWithGithub, githubUser, githubLoading, githubError] = useSignInWithGithub(auth);
   const [signInWithEmailAndPassword, user, loading, hookError] = useSignInWithEmailAndPassword(auth);
+  const [sendPasswordResetEmail, sending, resetError] = useSendPasswordResetEmail(auth);
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
@@ -99,12 +100,17 @@ const Login = () => {
             Please Register
           </Link>
         </p>
-        <p className="text-white">
-          Forgot Password?
-          <Link className="text-warning ms-2 text-decoration-none" to="/register">
-            Reset Password
-          </Link>
-        </p>
+        <Button
+          onClick={async () => {
+            await sendPasswordResetEmail(email);
+            toast("Sent email");
+          }}
+          variant="warning"
+          className="ms-2"
+        >
+          Reset Password
+        </Button>
+
         <Button onClick={handleLogin} className="font-weight-bolder w-25 mx-auto d-block" variant="warning">
           Login
         </Button>
