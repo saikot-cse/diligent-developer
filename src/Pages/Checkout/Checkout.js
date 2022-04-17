@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 const Checkout = () => {
   useEffect(() => {
-    document.title = "Checkout | Diligent Developer";
+    document.title = "Checkout";
     document.body.style.background = "#2b2f32";
   }, []);
   return (

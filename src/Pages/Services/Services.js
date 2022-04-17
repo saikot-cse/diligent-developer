@@ -4,7 +4,7 @@ import Service from "./Service/Service";
 import './Services.css'
 const Services = () => {
   useEffect(() => {
-    document.title = "Services | Diligent Developer";
+    document.title = "Services";
     document.body.style.background = "#2b2f32";
   }, []);
   const [services] = useService([]);

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useCreateUserWithEmailAndPassword, useSignInWithGithub, useSignInWithGoogle } from "react-firebase-hooks/auth";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import auth from "../../firebase.init";
 
 const Register = () => {
@@ -12,8 +12,10 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   useEffect(() => {
-    document.title = "Register | Diligent Developer";
+    document.title = "Register";
     document.body.style.background = "#2b2f32";
   }, []);
   const handleGoogleSignUp = () => {
@@ -23,7 +25,7 @@ const Register = () => {
     signInWithGithub();
   };
   if (googleUser || githubUser) {
-    navigate("/home");
+    navigate(from);
   }
   const handleEmailblur = (e) => {
     setEmail(e.target.value);

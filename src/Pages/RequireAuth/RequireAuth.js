@@ -8,7 +8,7 @@ const RequireAuth = ({ children }) => {
   if (loading) {
     return (
       <div>
-        <p>Initialising User...</p>
+        <p>loading...</p>
       </div>
     );
   }

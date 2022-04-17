@@ -6,7 +6,7 @@ import auth from "../../firebase.init";
 
 const Login = () => {
   useEffect(() => {
-    document.title = "Login | Diligent Developer";
+    document.title = "Login";
     document.body.style.background = "#2b2f32";
   }, []);
   const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
@@ -16,6 +16,7 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   const handleGoogleSignIn = () => {
     signInWithGoogle();
   };
@@ -23,9 +24,9 @@ const Login = () => {
     signInWithGithub();
   };
   if (googleUser || githubUser) {
-    navigate("/home");
+    navigate(from);
   }
-  const from = location.state?.from?.pathname || "/";
+  
   if(user){
     navigate(from);
   }
