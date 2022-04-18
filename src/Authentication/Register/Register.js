@@ -109,18 +109,18 @@ const Register = () => {
           <Form.Label className="text-white">Email address</Form.Label>
           <Form.Control onBlur={handleEmailblur} type="email" placeholder="Enter email" style={{ border: "1px", color: "#FFCA2C" }} required />
         </Form.Group>
-        <p className="text-danger">{emailError}</p>
+        <p className="text-warning">{emailError}</p>
         <Form.Group className="mb-3" controlId="formGroupPassword">
           <Form.Label className="text-white">Password</Form.Label>
           <Form.Control onBlur={handlePasswordblur} type="password" placeholder="Password" style={{ border: "1px", color: "#FFCA2C" }} required />
         </Form.Group>
-        <p className="text-danger">{passwordError}</p>
+        <p className="text-warning">{passwordError}</p>
 
         <Form.Group className="mb-3" controlId="formGroupConfirmPassword">
           <Form.Label className="text-white">Confirm Password</Form.Label>
           <Form.Control onBlur={handleConfirmPasswordblur} type="password" placeholder="Confirm Password" style={{ border: "1px", color: "#FFCA2C" }} required />
         </Form.Group>
-        <p className="text-danger">{confirmPasswordError}</p>
+        <p className="text-warning">{confirmPasswordError}</p>
         <ToastContainer />
         <p className="text-white">
           Already have an account?

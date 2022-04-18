@@ -30,14 +30,16 @@ const Login = () => {
     signInWithGithub();
   };
 
-  if (googleUser || githubUser) {
-    navigate(from);
-  }
+  useEffect(()=>{
+    if (googleUser || githubUser) {
+      navigate(from);
+    }
+  },[googleUser,githubUser,navigate,from])
   useEffect(() => {
     if (user) {
-      navigate(from,{replace:true});
+      navigate(from, { replace: true });
     }
-  }, [user]);
+  }, [user,navigate,from]);
 
   const handleEmailblur = (e) => {
     const emailRegex = /\S+@\S+\.\S+/;
@@ -84,7 +86,7 @@ const Login = () => {
           toast("something went wrong", { theme: "dark" });
       }
     }
-  }, [hookError, googleError, githubError]);
+  }, [hookError, googleError, githubError, resetError]);
   if (loading || googleLoading || githubLoading || sending) {
     return <Loading></Loading>;
   }
@@ -96,12 +98,12 @@ const Login = () => {
           <Form.Label className="text-white">Email address</Form.Label>
           <Form.Control onBlur={handleEmailblur} type="email" placeholder="Enter email" style={{ border: "1px", color: "#FFCA2C" }} required />
         </Form.Group>
-        <p className="text-danger">{emailError}</p>
+        <p className="text-warning">{emailError}</p>
         <Form.Group className="mb-3" controlId="formGroupPassword">
           <Form.Label className="text-white">Password</Form.Label>
           <Form.Control onBlur={handlePasswordblur} type="password" placeholder="Password" style={{ border: "1px", color: "#FFCA2C" }} required />
         </Form.Group>
-        <p className="text-danger">{passwordError}</p>
+        <p className="text-warning">{passwordError}</p>
         <ToastContainer />
         <p className="text-white">
           Don't have any account?
