@@ -5,6 +5,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import auth from "../../firebase.init";
+import Loading from "../../Pages/Loading/Loading";
 
 const Login = () => {
   useEffect(() => {
@@ -17,7 +18,6 @@ const Login = () => {
   const [sendPasswordResetEmail, sending, resetError] = useSendPasswordResetEmail(auth);
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
-  const [error, setError] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
@@ -29,14 +29,16 @@ const Login = () => {
   const handleGithubSignIn = () => {
     signInWithGithub();
   };
+
   if (googleUser || githubUser) {
     navigate(from);
   }
   useEffect(() => {
     if (user) {
-      navigate(from);
+      navigate(from,{replace:true});
     }
   }, [user]);
+
   const handleEmailblur = (e) => {
     const emailRegex = /\S+@\S+\.\S+/;
     const validEmail = emailRegex.test(e.target.value);
@@ -61,28 +63,35 @@ const Login = () => {
     signInWithEmailAndPassword(email, password);
   };
   useEffect(() => {
-    const error = hookError || googleError || githubError;
+    const error = hookError || googleError || githubError || resetError;
     if (error) {
+      console.log(error);
       switch (error?.code) {
         case "auth/user-not-found":
-          toast("Please provide a valid email");
+          toast("Please provide a valid email", { theme: "dark" });
+          break;
+        case "auth/invalid-email":
+          toast("Please provide a valid email and password", { theme: "dark" });
           break;
 
         case "auth/wrong-password":
           toast("Wrong password.");
           break;
         case "auth/popup-closed-by-user":
-          toast("having issue? Register with Email");
+          toast("having issue? Register with Email", { theme: "dark" });
           break;
         default:
-          toast("something went wrong");
+          toast("something went wrong", { theme: "dark" });
       }
     }
   }, [hookError, googleError, githubError]);
+  if (loading || googleLoading || githubLoading || sending) {
+    return <Loading></Loading>;
+  }
   return (
     <div>
       <h1 className="text-center text-warning my-5">Login</h1>
-      <Form className="w-50 mx-auto">
+      <Form className="w-50 mx-auto my-5">
         <Form.Group className="mb-3" controlId="formGroupEmail">
           <Form.Label className="text-white">Email address</Form.Label>
           <Form.Control onBlur={handleEmailblur} type="email" placeholder="Enter email" style={{ border: "1px", color: "#FFCA2C" }} required />

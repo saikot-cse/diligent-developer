@@ -12,6 +12,7 @@ import ServiceDetails from './Pages/ServiceDetails/ServiceDetails';
 import Services from './Pages/Services/Services';
 import Footer from './Pages/Shared/Footer/Footer';
 import Header from './Pages/Shared/Header/Header';
+import ThankYou from './ThankYou/ThankYou';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
             <Checkout/>
           </RequireAuth>
         }/>
+        <Route path='/thankyou' element={<ThankYou />}/>
         <Route path='/about' element={<About/>}/>
         <Route path='/blogs' element={<Blogs/>}/>
         <Route path='/register' element={<Register/>}/>

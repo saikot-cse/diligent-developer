@@ -9,15 +9,15 @@ const About = () => {
   return (
     <div className="container">
       <h1 className="text-warning text-center my-5">About Me</h1>
-      <section className="d-flex justify-content-between align-items-center mb-5">
+      <div className="mb-5 about-header">
         <div className="w-50">
           <h1 className="text-white about-title">
             Hi, I'm <span className="text-warning">Saifullah Mansur</span>
           </h1>
-          <p className="text-light">Front End Engineer based in Bangladesh ☀️. I describe myself as a passionate developer who loves open source, and the web platform ❤️.</p>
+          <p className="about-sub-title">Front End Engineer based in Bangladesh ☀️. I describe myself as a passionate developer who loves open source, and the web platform ❤️.</p>
         </div>
-        <img style={{ width: "325px" }} className="img-fluid" src={profilePic} alt="" />
-      </section>
+        <img className="img-fluid about-img" src={profilePic} alt="" />
+      </div>
       <div>
         <h2 className="text-warning text-center mt-5 mb-3">My goals</h2>
         <article className="text-white mb-5">

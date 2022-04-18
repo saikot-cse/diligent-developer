@@ -1,3 +1,32 @@
-.about-title{
+.about-title {
   font-size: 60px;
+}
+.about-sub-title{
+  color: rgb(163, 163, 163);
+}
+.about-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.about-img{
+  width: 325px;
+}
+@media only screen and (max-width: 576px) {
+  .about-header {
+    display: block;
+  }
+  .about-title {
+    font-size: 45px;
+    text-align: center;
+    width: 350px;
+  }
+  .about-sub-title{
+    text-align: center;
+    width: 350px;
+    margin-bottom: 50px;
+  }
+  .about-img{
+    width: 446px;
+  }
 }

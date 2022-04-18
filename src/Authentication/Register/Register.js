@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useCreateUserWithEmailAndPassword, useSignInWithGithub, useSignInWithGoogle } from "react-firebase-hooks/auth";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import auth from "../../firebase.init";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import auth from "../../firebase.init";
+import Loading from '../../Pages/Loading/Loading'
 const Register = () => {
   const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
   const [signInWithGithub, githubUser, githubLoading, githubError] = useSignInWithGithub(auth);
-  const [createUserWithEmailAndPassword, user, loading, hookError] = useCreateUserWithEmailAndPassword(auth,{ sendEmailVerification: true });
+  const [createUserWithEmailAndPassword, user, loading, hookError] = useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -66,6 +67,7 @@ const Register = () => {
   const handleRegister = () => {
     createUserWithEmailAndPassword(email, password);
   };
+
   useEffect(() => {
     if (user) {
       navigate("/login");
@@ -76,21 +78,25 @@ const Register = () => {
     if (error) {
       switch (error?.code) {
         case "auth/email-already-in-use":
-          toast("Email already used. Please try another email");
+          toast("Email already used. Please try another email", { theme: "dark" });
           break;
-
+        case "auth/invalid-email":
+          toast("Please provide a valid email and password", { theme: "dark" });
+          break;
         case "auth/wrong-password":
-          toast("Wrong password.");
+          toast("Wrong password.", { theme: "dark" });
           break;
         case "auth/popup-closed-by-user":
-          toast("having issue? Register with Email");
+          toast("having issue? Register with Email", { theme: "dark" });
           break;
         default:
-          toast("something went wrong");
+          toast("something went wrong", { theme: "dark" });
       }
     }
   }, [hookError, googleError, githubError]);
-
+  if (loading || googleLoading || githubLoading) {
+    return <Loading></Loading>;
+  }
   return (
     <div>
       <h1 className="text-center text-warning my-4">Register</h1>

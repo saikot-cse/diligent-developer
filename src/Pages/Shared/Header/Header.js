@@ -12,7 +12,7 @@ const Header = () => {
       <Navbar bg="dark" expand="lg" sticky="top">
         <Container>
           <Navbar.Brand href="#">
-            <span className="text-warning">Diligate Developer</span>
+            <span className="text-warning">Diligent Developer</span>
           </Navbar.Brand>
           <Navbar.Toggle className="bg-white" aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
@@ -35,8 +35,8 @@ const Header = () => {
                 <Nav.Link as={Link} className="text-white" to="/login">
                   Login
                 </Nav.Link>
-                
               )}
+              <p>{user?user.displayName : ""}</p>
             </Nav>
           </Navbar.Collapse>
         </Container>
