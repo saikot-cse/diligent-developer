@@ -13,7 +13,7 @@ const NotFound = () => {
   };
   return (
     <div>
-      <img className="mx-auto d-block mt-3 rounded" src={pageNotFound} alt="" />
+      <img className="mx-auto d-block mt-3 rounded img-fluid" src={pageNotFound} alt="" />
       <Button onClick={navigateToHome} className="font-weight-bolder w-25 mx-auto d-block my-3" variant="warning">
         Go back to Home
       </Button>

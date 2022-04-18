@@ -3,6 +3,7 @@ import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import useService from "../../Hooks/UseService";
 import Banner from "../Banner/Banner";
+import Reviews from "../Reviews/Reviews";
 import Service from "../Services/Service/Service";
 import "../Services/Services.css";
 const Home = () => {
@@ -16,7 +17,7 @@ const Home = () => {
     navigate("/services");
   };
   return (
-    <div>
+    <div id="home">
       <Banner></Banner>
       <div className="d-flex flex-column container">
         <h1 className="text-warning my-5 text-center">Top 3 Services</h1>
@@ -29,6 +30,7 @@ const Home = () => {
           Show All Services
         </Button>
       </div>
+      <Reviews></Reviews>
     </div>
   );
 };

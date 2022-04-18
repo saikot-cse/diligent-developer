@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "name": "Imriaz Uddin Eman",
+    "img": "https://i.ibb.co/6yX5Ndq/1.jpg",
+    "review": "First, this course is very well structured. The ability of the tutor in explaining advanced concepts of the JS just is tremendous.",
+    "ratings": 5
+  },
+  {
+    "id": 2,
+    "name": "Ayesha Nusrat Meem",
+    "img": "https://i.ibb.co/gmBNMch/2.jpg",
+    "review": "What a valuable course even it's from 2015. This completely changed the way I am thinking the JS language. Just loved it.",
+    "ratings": 4.5
+  },
+  {
+    "id": 3,
+    "name": "Naimur Rahman Rafi",
+    "img": "https://i.ibb.co/JqL0Zzt/3.jpg",
+    "review": "It is awesome to know what happens behind scene of the program. That helps understanding for debugging errors.",
+    "ratings": 5
+  },
+  {
+    "id": 4,
+    "name": "Syma Nusrat Ananya",
+    "img": "https://i.ibb.co/M8KGP42/4.webp",
+    "review": "This course is really outdated and i think you don't have any reason to take this course in 2022 because this course is based on ES-5. ",
+    "ratings": 3
+  },
+  {
+    "id": 5,
+    "name": "Hafiz Uddin Raju",
+    "img": "https://i.ibb.co/dfy8rH8/5.jpg",
+    "review": "This course made a lot of things clear to me. Now I feel I will be able to jump to NodeJs easily.",
+    "ratings": 4.7
+  },
+  {
+    "id": 6,
+    "name": "Prosenjit Ray pappu",
+    "img": "https://i.ibb.co/PG5Wsgf/6.jpg",
+    "review": "Thank you, Anthony Alicea, for providing this course, describing how JavaScript is running on the back end.",
+    "ratings": 4
+  }
+]

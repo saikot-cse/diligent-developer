@@ -74,7 +74,6 @@ const Register = () => {
   useEffect(() => {
     const error = hookError || googleError || githubError;
     if (error) {
-      console.log(error);
       switch (error?.code) {
         case "auth/email-already-in-use":
           toast("Email already used. Please try another email");
