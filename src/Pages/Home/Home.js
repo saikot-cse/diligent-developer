@@ -10,7 +10,7 @@ const Home = () => {
   const [services] = useService([]);
   const navigate = useNavigate();
   useEffect(() => {
-    document.title = "Homepage";
+    document.title = "Diligent Developer";
     document.body.style.background = "#2b2f32";
   }, []);
   const navigateToService = () => {
