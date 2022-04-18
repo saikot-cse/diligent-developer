@@ -9,12 +9,12 @@ const Header = () => {
   const [user, loading, error] = useAuthState(auth);
   return (
     <div>
-      <Navbar bg="dark" expand="lg" sticky="top">
+      <Navbar bg="dark" expand="lg">
         <Container>
-          <Navbar.Brand href="#">
+          <Navbar.Brand as={Link} to="/home">
             <span className="text-warning">Diligent Developer</span>
           </Navbar.Brand>
-          <Navbar.Toggle className="bg-white" aria-controls="navbarScroll" />
+          <Navbar.Toggle className="bg-warning" aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
             <Nav className="ms-auto my-5 my-lg-0" style={{ maxHeight: "100px" }} navbarScroll>
               <Nav.Link as={Link} className="text-white" to="/home">
